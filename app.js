@@ -11,5 +11,8 @@ app.get("/api/movies", (req, res) => {
     { id: 3, title: "movie Three" },
   ]);
 });
+app.get("/api/movies/:id", (req, res) => {
+  res.send(req.params);
+});
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
