@@ -1,3 +1,4 @@
+const Joi = require("joi");
 const express = require("express");
 const app = express();
 
@@ -21,6 +22,12 @@ app.get("/api/movies/:id", (req, res) => {
   return res.send(movie);
 });
 app.post("/api/movies", (req, res) => {
+  const schema = Joi.object({
+    title: Joi.string().min(1).required(),
+  });
+  const result = schema.validate(req.body);
+  if (result.error) return res.status(400).send(result.error.message); // 400; bad request
+
   const movie = {
     id: movies.length + 1,
     title: req.body.title,
