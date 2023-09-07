@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+app.use(express.json());
+
 const movies = [
   { id: 1, title: "movie One" },
   { id: 2, title: "movie Two" },
@@ -18,5 +20,14 @@ app.get("/api/movies/:id", (req, res) => {
   if (!movie) return res.status(404).send("Movie not found.");
   return res.send(movie);
 });
+app.post("/api/movies", (req, res) => {
+  const movie = {
+    id: movies.length + 1,
+    title: req.body.title,
+  };
+  movies.push(movie);
+  res.send(movie);
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
