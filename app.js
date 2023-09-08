@@ -9,7 +9,18 @@ const movies = [
   { id: 2, title: "movie Two" },
   { id: 3, title: "movie Three" },
 ];
-
+const genres = [
+  { id: 0, name: "Action" },
+  { id: 1, name: "Adventure" },
+  { id: 2, name: "Animation" },
+  { id: 3, name: "Biography" },
+  { id: 4, name: "Comedy" },
+  { id: 5, name: "Crime" },
+  { id: 6, name: "Documentary" },
+  { id: 7, name: "Drama" },
+  { id: 8, name: "Family" },
+];
+// Movie Section
 app.get("/", (req, res) => {
   res.send("Welcome to Cinema");
 });
@@ -61,6 +72,17 @@ const validateMovie = (movie) => {
   });
   return schema.validate(movie);
 };
+
+// Genre Section
+
+app.get("/api/genres", (req, res) => {
+  res.send(genres);
+});
+app.get("/api/genres/:id", (req, res) => {
+  const genre = genres.find((genre) => genre.id == req.params.id);
+  if (!genre) return res.status(404).send("Genre not found.");
+  return res.send(genre);
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
