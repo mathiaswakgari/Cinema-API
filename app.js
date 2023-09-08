@@ -1,8 +1,20 @@
 const Joi = require("joi");
+const config = require("config");
+const morgan = require("morgan");
 const express = require("express");
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// configuration
+
+console.log(`Application Name: ${config.get("name")}`);
+
+if (app.get("env") === "development") {
+  console.log("Morgan enabled");
+  app.use(morgan("tiny"));
+}
 
 const movies = [
   { id: 1, title: "movie One" },
