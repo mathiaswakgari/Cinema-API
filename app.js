@@ -22,11 +22,8 @@ app.get("/api/movies/:id", (req, res) => {
   return res.send(movie);
 });
 app.post("/api/movies", (req, res) => {
-  const schema = Joi.object({
-    title: Joi.string().min(1).required(),
-  });
-  const result = schema.validate(req.body);
-  if (result.error) return res.status(400).send(result.error.message); // 400; bad request
+  const { error } = validateMovie(req.body);
+  if (error) return res.status(400).send(error.message); // 400; bad request
 
   const movie = {
     id: movies.length + 1,
@@ -41,22 +38,19 @@ app.put("/api/movies/:id", (req, res) => {
   const movie = movies.find((movie) => movie.id == req.params.id);
   if (!movie) return res.status(404).send("Movie not found");
   //validate
-  const schema = Joi.object({
-    title: Joi.string().min(1).required(),
-  });
-  const result = schema.validate(req.body);
+  const { error } = validateMovie(req.body);
   //update
-  if (result.error) return res.status(400).send(result.error.message);
+  if (error) return res.status(400).send(error.message);
   movie.title = req.body.title;
   res.send(movie);
 });
 
-// const validateMovie = (movie) => {
-//   const schema = Joi.object({
-//     title: Joi.string().min(1).required(),
-//   });
-//   return schema.validate(req.body);
-// };
+const validateMovie = (movie) => {
+  const schema = Joi.object({
+    title: Joi.string().min(1).required(),
+  });
+  return schema.validate(movie);
+};
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
