@@ -36,5 +36,27 @@ app.post("/api/movies", (req, res) => {
   res.send(movie);
 });
 
+app.put("/api/movies/:id", (req, res) => {
+  //find
+  const movie = movies.find((movie) => movie.id == req.params.id);
+  if (!movie) return res.status(404).send("Movie not found");
+  //validate
+  const schema = Joi.object({
+    title: Joi.string().min(1).required(),
+  });
+  const result = schema.validate(req.body);
+  //update
+  if (result.error) return res.status(400).send(result.error.message);
+  movie.title = req.body.title;
+  res.send(movie);
+});
+
+// const validateMovie = (movie) => {
+//   const schema = Joi.object({
+//     title: Joi.string().min(1).required(),
+//   });
+//   return schema.validate(req.body);
+// };
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
