@@ -84,6 +84,19 @@ app.get("/api/genres/:id", (req, res) => {
   return res.send(genre);
 });
 
+app.post("/api/genre", (req, res) => {
+  const { error } = validateGenre(req.body);
+  if (error) return res.status(404).send(error.message);
+
+  const genre = {
+    id: genres.length + 1,
+    name: req.body.name,
+  };
+
+  genres.push(genre);
+  return res.send(genre);
+});
+
 const validateGenre = (genre) => {
   const schema = Joi.object({
     name: Joi.string().min(3).required(),
