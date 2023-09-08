@@ -84,5 +84,12 @@ app.get("/api/genres/:id", (req, res) => {
   return res.send(genre);
 });
 
+const validateGenre = (genre) => {
+  const schema = Joi.object({
+    name: Joi.string().min(3).required(),
+  });
+  return schema.validate(genre);
+};
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
