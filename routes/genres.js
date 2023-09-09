@@ -1,5 +1,17 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const route = express.Router();
+
+const genreSchema = new mongoose.schema({
+  id: number,
+  name: String,
+});
+
+const Genre = mongoose.model("Genre", genreSchema);
+const genre = new Genre({
+  id: 0,
+  name: "Action",
+});
 
 const genres = [
   { id: 0, name: "Action" },
