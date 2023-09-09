@@ -33,6 +33,11 @@ const updateGenre = async (id, name) => {
   return result;
 };
 
+const deleteGenre = async (id) => {
+  const genre = await Genre.findByIdAndRemove(id);
+  return genre;
+};
+
 const genres = [
   { id: 0, name: "Action" },
   { id: 1, name: "Adventure" },
