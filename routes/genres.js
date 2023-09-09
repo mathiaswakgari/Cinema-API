@@ -6,14 +6,22 @@ const genreSchema = new mongoose.Schema({
   _id: Number,
   name: String,
 });
-
 const Genre = mongoose.model("Genre", genreSchema);
-const genre = new Genre({
-  _id: 3,
-  name: "Biography",
-});
 
-genre.save().then((result) => console.log(result));
+const createGenre = async () => {
+  const genre = new Genre({
+    _id: 3,
+    name: "Biography",
+  });
+
+  const result = await genre.save();
+  return result;
+};
+
+const getGenres = async () => {
+  const genres = await Genre.find();
+  return genres;
+};
 
 const genres = [
   { id: 0, name: "Action" },
