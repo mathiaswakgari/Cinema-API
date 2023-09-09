@@ -2,16 +2,18 @@ const express = require("express");
 const mongoose = require("mongoose");
 const route = express.Router();
 
-const genreSchema = new mongoose.schema({
-  id: number,
+const genreSchema = new mongoose.Schema({
+  _id: Number,
   name: String,
 });
 
 const Genre = mongoose.model("Genre", genreSchema);
 const genre = new Genre({
-  id: 0,
-  name: "Action",
+  _id: 3,
+  name: "Biography",
 });
+
+genre.save().then((result) => console.log(result));
 
 const genres = [
   { id: 0, name: "Action" },
