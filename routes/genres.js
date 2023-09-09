@@ -23,6 +23,16 @@ const getGenres = async () => {
   return genres;
 };
 
+const updateGenre = async (id, name) => {
+  const genre = await Genre.findById(id);
+  if (!genre) return;
+
+  genre.name = name;
+
+  const result = await genre.save();
+  return result;
+};
+
 const genres = [
   { id: 0, name: "Action" },
   { id: 1, name: "Adventure" },
