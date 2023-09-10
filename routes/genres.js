@@ -3,8 +3,11 @@ const mongoose = require("mongoose");
 const route = express.Router();
 
 const genreSchema = new mongoose.Schema({
-  _id: Number,
-  name: String,
+  _id: {
+    type: Number,
+    required: true,
+  },
+  name: { type: String, required: true },
 });
 const Genre = mongoose.model("Genre", genreSchema);
 
@@ -14,8 +17,12 @@ const createGenre = async () => {
     name: "Biography",
   });
 
-  const result = await genre.save();
-  return result;
+  try {
+    const result = await genre.save();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
 };
 
 const getGenres = async () => {
