@@ -58,7 +58,9 @@ const genres = [
 ];
 
 route.get("/", (req, res) => {
-  res.send(genres);
+  getGenres()
+    .then((genres) => res.send(genres))
+    .catch((error) => res.status(404).send(error.message));
 });
 route.get("/:id", (req, res) => {
   const genre = genres.find((genre) => genre.id == req.params.id);
