@@ -12,18 +12,6 @@ const genreSchema = new mongoose.Schema({
 });
 const Genre = mongoose.model("Genre", genreSchema);
 
-const genres = [
-  { id: 0, name: "Action" },
-  { id: 1, name: "Adventure" },
-  { id: 2, name: "Animation" },
-  { id: 3, name: "Biography" },
-  { id: 4, name: "Comedy" },
-  { id: 5, name: "Crime" },
-  { id: 6, name: "Documentary" },
-  { id: 7, name: "Drama" },
-  { id: 8, name: "Family" },
-];
-
 route.get("/", (req, res) => {
   Genre.find()
     .sort("name")

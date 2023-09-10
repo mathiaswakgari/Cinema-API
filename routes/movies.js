@@ -1,11 +1,30 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const route = express.Router();
+const Joi = require("joi");
 
-const movies = [
-  { id: 1, title: "movie One" },
-  { id: 2, title: "movie Two" },
-  { id: 3, title: "movie Three" },
-];
+const movieSchema = mongoose.Schema({
+  url: String,
+  imdb_code: String,
+  title: String,
+  slug: String,
+  year: Number,
+  rating: Number,
+  runtime: Number,
+  summary: String,
+  genres: [String],
+  background_image: String,
+  small_cover_image: String,
+  large_cover_image: String,
+  medium_cover_image: String,
+  yt_trailer_code: String,
+  large_screenshot_image1: String,
+  large_screenshot_image2: String,
+  medium_screenshot_image1: String,
+  medium_screenshot_image2: String,
+  description_full: String,
+  cast: [String],
+});
 
 route.get("/", (req, res) => {
   res.send(movies);
