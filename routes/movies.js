@@ -53,26 +53,20 @@ route.post("/", async (req, res) => {
   res.send(movie);
 });
 
-route.put("/:id", (req, res) => {
-  //find
-  const movie = movies.find((movie) => movie.id == req.params.id);
-  if (!movie) return res.status(404).send("Movie not found");
-  //validate
+route.put("/:id", async (req, res) => {
   const { error } = validateMovie(req.body);
-  //update
   if (error) return res.status(400).send(error.message);
-  movie.title = req.body.title;
+
+  const movie = await Movie.findByIdAndUpdate(req.params.id, req.body);
+  if (!movie) return res.status(404).send("Movie not found");
+
   res.send(movie);
 });
 
-route.delete("/:id", (req, res) => {
-  const movie = movies.find((movie) => movie.id == req.params.id);
+route.delete("/:id", async (req, res) => {
+  const movie = await Movie.findByIdAndRemove(req.params.id);
   if (!movie) return res.status(404).send("Movie not found");
-
-  const indexOfMovie = movies.indexOf(movie);
-  movies.slice(indexOfMovie, 1);
-
-  return res.send(movie);
+  res.send(movie);
 });
 
 const validateMovie = (movie) => {
