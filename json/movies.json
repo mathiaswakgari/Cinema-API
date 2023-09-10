@@ -1,0 +1,86 @@
+[
+  {
+    "id": 10,
+    "imdb_code": "tt0798817",
+    "title": "13",
+    "slug": "13-2010",
+    "year": 2010,
+    "rating": 6,
+    "runtime": 91,
+    "genres": ["Action", "Crime", "Drama", "Thriller"],
+    "background_image": "https://yts.mx/assets/images/movies/13_2010/background.jpg",
+    "large_cover_image": "https://yts.mx/assets/images/movies/13_2010/background.jpg",
+    "small_cover_image": "https://yts.mx/assets/images/movies/13_2010/small-cover.jpg",
+    "medium_cover_image": "https://yts.mx/assets/images/movies/13_2010/medium-cover.jpg",
+    "yt_trailer_code": "Y41fFj-P4jI",
+    "description_full": "In Talbot, Ohio, a father's need for surgeries puts the family in a financial bind. His son Vince, an electrician, overhears a man talking about making a fortune in just a day. When the man overdoses on drugs, Vince finds instructions and a cell phone that the man has received and substitutes himself: taking a train to New York and awaiting contact. He has no idea what it's about. He ends up at a remote house where wealthy men bet on who will survive a complicated game of Russian roulette: he's number 13. In flashbacks we meet other contestants, including a man whose brother takes him out of a mental institution in order to compete. Can Vince be the last one standing?—",
+    "cast": [
+      {
+        "name": "Jason Statham",
+        "character_name": "Jasper",
+        "url_small_image": "https://yts.mx/assets/images/actors/thumb/nm0005458.jpg",
+        "imdb_code": "0005458"
+      },
+      {
+        "name": "Alexander Skarsgård",
+        "character_name": "Jack",
+        "url_small_image": "https://yts.mx/assets/images/actors/thumb/nm0002907.jpg",
+        "imdb_code": "0002907"
+      },
+      {
+        "name": "Michael Shannon",
+        "character_name": "Henry",
+        "url_small_image": "https://yts.mx/assets/images/actors/thumb/nm0788335.jpg",
+        "imdb_code": "0788335"
+      },
+      {
+        "name": "Gaby Hoffmann",
+        "character_name": "Clara Ferro",
+        "url_small_image": "https://yts.mx/assets/images/actors/thumb/nm0000451.jpg",
+        "imdb_code": "0000451"
+      }
+    ]
+  },
+  {
+    "id": 1704,
+    "imdb_code": "tt0251160",
+    "title": "John Q",
+    "slug": "john-q-2002",
+    "year": 2002,
+    "rating": 7.1,
+    "runtime": 116,
+    "genres": ["Action", "Crime", "Drama", "Thriller"],
+    "background_image": "https://yts.mx/assets/images/movies/John_Q_2002/background.jpg",
+    "large_cover_image": "https://yts.mx/assets/images/movies/John_Q_2002/large-cover.jpg",
+    "small_cover_image": "https://yts.mx/assets/images/movies/John_Q_2002/small-cover.jpg",
+    "medium_cover_image": "https://yts.mx/assets/images/movies/John_Q_2002/medium-cover.jpg",
+    "yt_trailer_code": "-yE7XSLJVWM",
+    "description_full": "John Quincy Archibald's son Michael collapses while playing baseball as a result of heart failure. John rushes Michael to a hospital emergency room where he is informed that Michael's only hope is a transplant. Unfortunately, John's insurance won't cover his son's transplant. Out of options, John Q. takes the emergency room staff and patients hostage until hospital doctors agree to do the transplant.—Anonymous",
+    "cast": [
+      {
+        "name": "Denzel Washington",
+        "character_name": "John Quincy Archibald",
+        "url_small_image": "https://yts.mx/assets/images/actors/thumb/nm0000243.jpg",
+        "imdb_code": "0000243"
+      },
+      {
+        "name": "Ray Liotta",
+        "character_name": "Chief Gus Monroe",
+        "url_small_image": "https://yts.mx/assets/images/actors/thumb/nm0000501.jpg",
+        "imdb_code": "0000501"
+      },
+      {
+        "name": "Robert Duvall",
+        "character_name": "Lt. Frank Grimes",
+        "url_small_image": "https://yts.mx/assets/images/actors/thumb/nm0000380.jpg",
+        "imdb_code": "0000380"
+      },
+      {
+        "name": "Laura Harring",
+        "character_name": "Gina Palumbo",
+        "url_small_image": "https://yts.mx/assets/images/actors/thumb/nm0005009.jpg",
+        "imdb_code": "0005009"
+      }
+    ]
+  }
+]

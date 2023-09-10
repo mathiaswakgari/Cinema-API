@@ -3,8 +3,14 @@ const mongoose = require("mongoose");
 const route = express.Router();
 const Joi = require("joi");
 
+const castSchema = mongoose.Schema({
+  name: String,
+  character_name: String,
+  url_small_image: String,
+  imdb_code: String,
+});
 const movieSchema = mongoose.Schema({
-  url: String,
+  _id: Number,
   imdb_code: String,
   title: String,
   slug: String,
@@ -23,7 +29,7 @@ const movieSchema = mongoose.Schema({
   medium_screenshot_image1: String,
   medium_screenshot_image2: String,
   description_full: String,
-  cast: [String],
+  cast: [castSchema],
 });
 
 const Movie = mongoose.model("Movie", movieSchema);
@@ -33,20 +39,17 @@ route.get("/", (req, res) => {
     .sort("title")
     .then((movies) => res.send(movies));
 });
-route.get("/:id", (req, res) => {
-  const movie = Movie.findById(req.params.id);
+route.get("/:id", async (req, res) => {
+  const movie = await Movie.findById(req.params.id);
   if (!movie) return res.status(404).send("Movie not found");
   return res.send(movie);
 });
-route.post("/", (req, res) => {
+route.post("/", async (req, res) => {
   const { error } = validateMovie(req.body);
   if (error) return res.status(400).send(error.message); // 400; bad request
 
-  const movie = {
-    id: movies.length + 1,
-    title: req.body.title,
-  };
-  movies.push(movie);
+  let movie = new Movie(req.body);
+  movie = await movie.save();
   res.send(movie);
 });
 
@@ -74,8 +77,8 @@ route.delete("/:id", (req, res) => {
 
 const validateMovie = (movie) => {
   const schema = Joi.object({
+    id: Joi.number().required(),
     title: Joi.string().min(1).required(),
-    url: Joi.string().min(1).required(),
     imdb_code: Joi.string().min(1).required(),
     title: Joi.string().min(1).required(),
     slug: Joi.string().min(1).required(),
@@ -94,7 +97,14 @@ const validateMovie = (movie) => {
     medium_screenshot_image1: Joi.string().min(1),
     medium_screenshot_image2: Joi.string().min(1),
     description_full: Joi.string().min(1),
-    cast: Joi.array().items(Joi.string()),
+    cast: Joi.array().items(
+      Joi.object({
+        name: Joi.string(),
+        character_name: Joi.string(),
+        url_small_image: Joi.string(),
+        imdb_code: Joi.string(),
+      })
+    ),
   });
   return schema.validate(movie);
 };
