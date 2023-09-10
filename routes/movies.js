@@ -26,12 +26,16 @@ const movieSchema = mongoose.Schema({
   cast: [String],
 });
 
+const Movie = mongoose.model("Movie", movieSchema);
+
 route.get("/", (req, res) => {
-  res.send(movies);
+  Movie.find()
+    .sort("title")
+    .then((movies) => res.send(movies));
 });
 route.get("/:id", (req, res) => {
-  const movie = movies.find((movie) => movie.id == req.params.id);
-  if (!movie) return res.status(404).send("Movie not found.");
+  const movie = Movie.findById(req.params.id);
+  if (!movie) return res.status(404).send("Movie not found");
   return res.send(movie);
 });
 route.post("/", (req, res) => {
