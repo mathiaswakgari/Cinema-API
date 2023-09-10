@@ -75,6 +75,26 @@ route.delete("/:id", (req, res) => {
 const validateMovie = (movie) => {
   const schema = Joi.object({
     title: Joi.string().min(1).required(),
+    url: Joi.string().min(1).required(),
+    imdb_code: Joi.string().min(1).required(),
+    title: Joi.string().min(1).required(),
+    slug: Joi.string().min(1).required(),
+    year: Joi.number().min(1000).required(),
+    rating: Joi.number().min(1).max(10).required(),
+    runtime: Joi.number().min(1).required(),
+    summary: Joi.string().min(1),
+    genres: Joi.array().items(Joi.string()),
+    background_image: Joi.string().min(1),
+    small_cover_image: Joi.string().min(1),
+    large_cover_image: Joi.string().min(1),
+    medium_cover_image: Joi.string().min(1),
+    yt_trailer_code: Joi.string().min(1),
+    large_screenshot_image1: Joi.string().min(1),
+    large_screenshot_image2: Joi.string().min(1),
+    medium_screenshot_image1: Joi.string().min(1),
+    medium_screenshot_image2: Joi.string().min(1),
+    description_full: Joi.string().min(1),
+    cast: Joi.array().items(Joi.string()),
   });
   return schema.validate(movie);
 };
