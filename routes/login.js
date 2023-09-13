@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const route = express.Router();
@@ -20,7 +21,12 @@ route.post("/", async (req, res) => {
     user.password
   );
   if (!isPasswordValid) return res.status(400).send("Wrong email or password");
-  return res.send(true);
+  const token = jwt.sign(
+    _.pick(user, ["fullname", "email", "_id", "username"]),
+    "privateKey"
+  );
+
+  return res.send(token);
 });
 
 module.exports = route;
