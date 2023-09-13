@@ -5,7 +5,7 @@ const { validate, User } = require("../models/user");
 
 route.get("/", (req, res) => {
   User.find()
-    .sort("fullName")
+    .sort("fullname")
     .then((users) => res.send(users));
 });
 
@@ -19,7 +19,13 @@ route.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.message);
 
-  const user = new User(req.body);
+  let user = await User.findOne({
+    email: req.body.email,
+    username: req.body.username,
+  });
+  if (user) return res.status(400).send("User already registered.");
+
+  user = new User(req.body);
   await user.save();
   return res.send(user);
 });
