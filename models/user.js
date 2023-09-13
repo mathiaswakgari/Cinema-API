@@ -1,4 +1,7 @@
+require("dotenv").config();
 const Joi = require("joi");
+const jwt = require("jsonwebtoken");
+const _ = require("lodash");
 const passwordComplexity = require("joi-password-complexity");
 const mongoose = require("mongoose");
 
@@ -22,7 +25,13 @@ const userSchema = mongoose.Schema({
     required: true,
   },
 });
-
+userSchema.methods.generateJwtToken = function () {
+  const token = jwt.sign(
+    _.pick(this, ["fullname", "email", "_id", "username"]),
+    process.env.JWTkey
+  );
+  return token;
+};
 const User = mongoose.model("User", userSchema);
 
 const validateUser = (user) => {

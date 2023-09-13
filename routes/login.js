@@ -1,8 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const route = express.Router();
 const { validate } = require("../models/login");
@@ -22,10 +19,7 @@ route.post("/", async (req, res) => {
     user.password
   );
   if (!isPasswordValid) return res.status(400).send("Wrong email or password");
-  const token = jwt.sign(
-    _.pick(user, ["fullname", "email", "_id", "username"]),
-    process.env.JWTkey
-  );
+  const token = user.generateJwtToken();
 
   return res.send(token);
 });

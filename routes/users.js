@@ -1,9 +1,7 @@
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
-const _ = require("lodash");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const _ = require("lodash");
 const route = express.Router();
 const { validate, User } = require("../models/user");
 
@@ -36,10 +34,7 @@ route.post("/", async (req, res) => {
   user.password = await bcrypt.hash(req.body.password, salt);
   await user.save();
 
-  const token = jwt.sign(
-    _.pick(user, ["fullname", "email", "_id", "username"]),
-    process.env.JWTkey
-  );
+  const token = user.generateJwtToken();
 
   return res
     .header("x-login-token", token)
