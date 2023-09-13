@@ -25,7 +25,7 @@ if (app.get("env") === "development") {
 // database
 
 mongoose
-  .connect("mongodb://127.0.0.1/cinema", {
+  .connect(config.get("url"), {
     useNewUrlParser: true,
 
     useUnifiedTopology: true,
