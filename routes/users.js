@@ -23,3 +23,5 @@ route.post("/", async (req, res) => {
   await user.save();
   return res.send(user);
 });
+
+module.exports = route;

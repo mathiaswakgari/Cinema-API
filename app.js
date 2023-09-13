@@ -7,6 +7,7 @@ const app = express();
 const homeRoute = require("./routes/home");
 const moviesRoute = require("./routes/movies");
 const genresRoute = require("./routes/genres");
+const usersRoute = require("./routes/users");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -39,6 +40,8 @@ app.use("/api", homeRoute);
 app.use("/api/movies", moviesRoute);
 // Genre Section
 app.use("/api/genres", genresRoute);
+// User Section
+app.use("/api/users", usersRoute);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
