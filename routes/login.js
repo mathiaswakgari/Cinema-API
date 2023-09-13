@@ -24,7 +24,7 @@ route.post("/", async (req, res) => {
   if (!isPasswordValid) return res.status(400).send("Wrong email or password");
   const token = jwt.sign(
     _.pick(user, ["fullname", "email", "_id", "username"]),
-    "privateKey"
+    process.env.JWTkey
   );
 
   return res.send(token);

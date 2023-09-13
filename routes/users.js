@@ -1,7 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const route = express.Router();
 const { validate, User } = require("../models/user");
 
@@ -33,7 +35,15 @@ route.post("/", async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(req.body.password, salt);
   await user.save();
-  return res.send(_.pick(user, ["_id", "fullname", "email", "username"]));
+
+  const token = jwt.sign(
+    _.pick(user, ["fullname", "email", "_id", "username"]),
+    process.env.JWTkey
+  );
+
+  return res
+    .header("x-login-token", token)
+    .send(_.pick(user, ["_id", "fullname", "email", "username"]));
 });
 
 module.exports = route;
