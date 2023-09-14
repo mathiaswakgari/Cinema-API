@@ -1,23 +1,29 @@
 require("dotenv").config();
 const express = require("express");
 const bcrypt = require("bcrypt");
+const auth = require("../middlewares/auth");
 const _ = require("lodash");
 const route = express.Router();
 const { validate, User } = require("../models/user");
 
-route.get("/", (req, res) => {
+route.get("/", auth, (req, res) => {
   User.find()
     .sort("fullname")
     .then((users) => res.send(users));
 });
 
-route.get("/:id", async (req, res) => {
+route.get("/:id", auth, async (req, res) => {
   const user = User.findById(req.params.id);
   if (!user) return res.status(404).send("User not found.");
   return res.send(user);
 });
 
-route.post("/", async (req, res) => {
+route.get("/me", auth, async (req, res) => {
+  const user = await User.findById(req.user._id);
+  return res.send(user);
+});
+
+route.post("/", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.message);
 
