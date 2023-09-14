@@ -2,6 +2,7 @@ const config = require("config");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const express = require("express");
+const error = require("./middlewares/error");
 const app = express();
 
 const homeRoute = require("./routes/home");
@@ -45,6 +46,8 @@ app.use("/api/genres", genresRoute);
 app.use("/api/users", usersRoute);
 // Login Section
 app.use("/api/login", loginRoute);
+
+app.use(error);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
