@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const auth = require("../middlewares/auth");
+const admin = require("../middlewares/admin");
 const route = express.Router();
 const { validate, Movie } = require("../models/movie");
 
@@ -14,7 +15,7 @@ route.get("/:id", async (req, res) => {
   if (!movie) return res.status(404).send("Movie not found");
   return res.send(movie);
 });
-route.post("/", auth, async (req, res) => {
+route.post("/", [auth, admin], async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.message); // 400; bad request
 
@@ -23,7 +24,7 @@ route.post("/", auth, async (req, res) => {
   res.send(movie);
 });
 
-route.put("/:id", auth, async (req, res) => {
+route.put("/:id", [auth, admin], async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.message);
 
@@ -33,7 +34,7 @@ route.put("/:id", auth, async (req, res) => {
   res.send(movie);
 });
 
-route.delete("/:id", auth, async (req, res) => {
+route.delete("/:id", [auth, admin], async (req, res) => {
   const movie = await Movie.findByIdAndRemove(req.params.id);
   if (!movie) return res.status(404).send("Movie not found");
   res.send(movie);

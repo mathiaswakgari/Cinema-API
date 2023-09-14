@@ -24,10 +24,14 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
 });
 userSchema.methods.generateJwtToken = function () {
   const token = jwt.sign(
-    _.pick(this, ["fullname", "email", "_id", "username"]),
+    _.pick(this, ["fullname", "email", "_id", "username", "isAdmin"]),
     process.env.JWTkey
   );
   return token;
