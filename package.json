@@ -16,6 +16,16 @@
     "winston": "^3.10.0"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "jshint": "^2.13.6"
-  }
+  },
+  "name": "cinema-api",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "author": "Mathias Wakgari",
+  "license": "ISC",
+  "description": ""
 }
