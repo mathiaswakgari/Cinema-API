@@ -12,7 +12,8 @@
     "mongodb": "^6.0.0",
     "mongoose": "^7.5.0",
     "morgan": "^1.10.0",
-    "underscore": "^1.13.6"
+    "underscore": "^1.13.6",
+    "winston": "^3.10.0"
   },
   "devDependencies": {
     "jshint": "^2.13.6"

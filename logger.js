@@ -1,9 +1,11 @@
-const EventEmitter = require("events");
+const winston = require("winston");
 
-class Logger extends EventEmitter {
-  log = (message) => {
-    console.log(message);
-    this.emit("messageLogged", { message: message });
-  };
-}
-module.exports = Logger;
+const logger = winston.createLogger({
+  level: "error",
+  format: winston.format.json(),
+  defaultMeta: { meta: this.error },
+  transports: [
+    new winston.transports.File({ filename: "error.log", level: "error" }),
+  ],
+});
+module.exports = logger;
