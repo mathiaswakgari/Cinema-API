@@ -1,9 +1,9 @@
 const config = require("config");
-const mongoose = require("mongoose");
 const morgan = require("morgan");
 const express = require("express");
 const app = express();
 const logger = require("./logger");
+require("./startup/db")();
 require("./startup/routes")(app);
 
 // handle uncaught exception(Node-level)
@@ -30,17 +30,6 @@ if (app.get("env") === "development") {
 }
 
 // database
-
-mongoose
-  .connect(config.get("url"), {
-    useNewUrlParser: true,
-
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected to MongoDB..."))
-  .catch((error) =>
-    console.error("Failed connecting to MongoDB.", error.message)
-  );
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
