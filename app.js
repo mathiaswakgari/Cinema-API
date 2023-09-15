@@ -1,16 +1,25 @@
 const config = require("config");
-const winston = require("winston");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const express = require("express");
 const error = require("./middlewares/error");
 const app = express();
 
+const logger = require("./logger");
+
 const homeRoute = require("./routes/home");
 const moviesRoute = require("./routes/movies");
 const genresRoute = require("./routes/genres");
 const usersRoute = require("./routes/users");
 const loginRoute = require("./routes/login");
+
+// handle uncaught exception(Node-level)
+
+process.on("uncaughtException", (ex) => {
+  logger.log("error", ex.message, ex);
+});
+
+//
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
