@@ -3,6 +3,7 @@ const config = require("config");
 const logger = require("../logger");
 
 module.exports = function () {
+  // database
   mongoose
     .connect(config.get("url"), {
       useNewUrlParser: true,
