@@ -1,0 +1,45 @@
+[{
+  "_id": 0,
+  "name": "Action",
+  "__v": 0
+},
+{
+  "_id": 1,
+  "name": "Adventure",
+  "__v": 0
+},
+{
+  "_id": 3,
+  "name": "Biography",
+  "__v": 0
+},
+{
+  "_id": 4,
+  "name": "Comedy",
+  "__v": 0
+},
+{
+  "_id": 5,
+  "name": "Crime",
+  "__v": 0
+},
+{
+  "_id": 6,
+  "name": "Documentary",
+  "__v": 0
+},
+{
+  "_id": 7,
+  "name": "Drama",
+  "__v": 0
+},
+{
+  "_id": 8,
+  "name": "Family",
+  "__v": 0
+},
+{
+  "_id": 2,
+  "name": "Animation",
+  "__v": 0
+}]
