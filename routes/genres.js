@@ -21,34 +21,46 @@ route.get(
   })
 );
 
-route.post("/", [auth, admin], async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.message);
+route.post(
+  "/",
+  [auth, admin],
+  asyncMiddleware(async (req, res) => {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.message);
 
-  let genre = new Genre({
-    _id: req.body.id,
-    name: req.body.name,
-  });
+    let genre = new Genre({
+      _id: req.body.id,
+      name: req.body.name,
+    });
 
-  genre = await genre.save();
-  res.send(genre);
-});
+    genre = await genre.save();
+    res.send(genre);
+  })
+);
 
-route.put("/:id", [auth, admin], async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.message);
+route.put(
+  "/:id",
+  [auth, admin],
+  asyncMiddleware(async (req, res) => {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.message);
 
-  const genre = await Genre.findByIdAndUpdate(req.params.id, {
-    name: req.body.name,
-  });
-  if (!genre) return res.status(404).send("Genre not found.");
-  res.send(genre);
-});
+    const genre = await Genre.findByIdAndUpdate(req.params.id, {
+      name: req.body.name,
+    });
+    if (!genre) return res.status(404).send("Genre not found.");
+    res.send(genre);
+  })
+);
 
-route.delete("/:id", [auth, admin], async (req, res) => {
-  const genre = await Genre.findByIdAndRemove(req.params.id);
-  if (!genre) return res.status(404).send("Genre not found.");
-  res.send(genre);
-});
+route.delete(
+  "/:id",
+  [auth, admin],
+  asyncMiddleware(async (req, res) => {
+    const genre = await Genre.findByIdAndRemove(req.params.id);
+    if (!genre) return res.status(404).send("Genre not found.");
+    res.send(genre);
+  })
+);
 
 module.exports = route;
