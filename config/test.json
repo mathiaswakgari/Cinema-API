@@ -1,5 +1,5 @@
 {
   "name": "Cinema API - Testing",
-  "connection": "mongodb://localhost:27017",
+  "url": "mongodb://127.0.0.1/cinema_test",
   "jwtPrivateKey": "JWTkey"
 }
