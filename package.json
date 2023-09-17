@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "chai": "^4.3.8",
     "config": "^3.3.9",
     "debug": "^4.3.4",
     "dotenv": "^16.3.1",
@@ -9,21 +10,27 @@
     "joi-password-complexity": "^5.2.0",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
+    "mocha": "^10.2.0",
     "mongodb": "^6.0.0",
     "mongoose": "^7.5.0",
     "morgan": "^1.10.0",
+    "supertest": "^3.0.0",
+    "save-dev": "^0.0.1-security",
     "underscore": "^1.13.6",
-    "winston": "^3.10.0"
+    "winston": "^3.10.0",
+    "chai-subset": "^1.6.0"
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "jshint": "^2.13.6"
+    "jshint": "^2.13.6",
+    "node-mocks-http": "^1.13.0"
+    
   },
   "name": "cinema-api",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "jest --watchAll --verbose"
+    "test": "mocha --recursive"
   },
   "author": "Mathias Wakgari",
   "license": "ISC",
