@@ -8,6 +8,15 @@ const _ = require("lodash");
 const route = express.Router();
 const { validate, User } = require("../models/user");
 
+route.get(
+  "/me",
+  auth,
+  asyncMiddleware(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    return res.send(user);
+  })
+);
+
 route.get("/", [auth, admin], (req, res, next) => {
   User.find()
     .sort("fullname")
@@ -21,15 +30,6 @@ route.get(
   asyncMiddleware(async (req, res) => {
     const user = User.findById(req.params.id);
     if (!user) return res.status(404).send("User not found.");
-    return res.send(user);
-  })
-);
-
-route.get(
-  "/me",
-  auth,
-  asyncMiddleware(async (req, res) => {
-    const user = await User.findById(req.user._id);
     return res.send(user);
   })
 );

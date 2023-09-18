@@ -1,9 +1,9 @@
 const chai = require("chai");
-const { Genre } = require("../../models/genre");
+const { Genre } = require("../../../models/genre");
 var chaiSubset = require("chai-subset");
 
 const request = require("supertest");
-const { User } = require("../../models/user");
+const { User } = require("../../../models/user");
 const { beforeEach } = require("mocha");
 
 let server;
@@ -13,7 +13,7 @@ const expect = chai.expect;
 
 describe("/api/genres", () => {
   beforeEach(() => {
-    server = require("../../app");
+    server = require("../../../app");
   });
   afterEach(async () => {
     server.close();
