@@ -4,6 +4,7 @@ var chaiSubset = require("chai-subset");
 
 const request = require("supertest");
 const { User } = require("../../models/user");
+const { beforeEach } = require("mocha");
 
 let server;
 
@@ -53,76 +54,48 @@ describe("/api/genres", () => {
     });
   });
   describe("POST /", () => {
+    const execute = async (name, token) => {
+      return await request(server)
+        .post("/api/genres")
+        .set("x-login-token", token)
+        .send({ id: 0, name: name });
+    };
+
     it("Should return a 401 code if not user isn't authenticated", async () => {
-      const genre = new Genre({
-        _id: 0,
-        name: "genre1",
-      });
-      const res = await request(server).post("/api/genres").send(genre);
+      const res = await execute("genre1", "");
 
       expect(res.status).to.equal(401);
     });
-  });
-  it("Should return a 403 code if not user isn't an admin", async () => {
-    const token = new User().generateJwtToken();
-    const genre = new Genre({
-      _id: 0,
-      name: "genre1",
+    it("Should return a 403 code if not user isn't an admin", async () => {
+      const token = new User({ isAdmin: false }).generateJwtToken();
+      const res = await execute("genre1", token);
+
+      expect(res.status).to.equal(403);
     });
-    const res = await request(server)
-      .post("/api/genres")
-      .set("x-login-token", token)
-      .send(genre);
+    it("Should return a 400 code if input is invalid", async () => {
+      const token = new User({ isAdmin: true }).generateJwtToken();
+      const genreName = "ge";
 
-    expect(res.status).to.equal(403);
-  });
-  it("Should return a 400 code if input is invalid", async () => {
-    const token = new User({
-      isAdmin: true,
-    }).generateJwtToken();
+      const res = await execute(genreName, token);
 
-    const genre = {
-      id: 0,
-      name: "genred",
-    };
-    const res = await request(server)
-      .post("api/genres")
-      .set("x-login-token", token)
-      .send(genre);
-
-    expect(res.status).to.equal(400);
-  });
-  it("Should save genre if valid", async () => {
-    const token = new User().generateJwtToken();
-
-    const genre = new Genre({
-      id: 0,
-      name: "genred",
+      expect(res.status).to.equal(400);
     });
-    await genre.save();
-    const res = await request(server)
-      .post("/api/genres")
-      .set("x-login-token", token)
-      .send(genre);
+    it("Should save genre if valid", async () => {
+      const token = new User({ isAdmin: true }).generateJwtToken();
+      const genreName = "genre1";
+      await execute(genreName, token);
 
-    const result = await Genre.findOne(genre);
+      const result = await Genre.findOne({ name: genreName });
 
-    expect(result).to.not.be.null;
-  });
-  it("Should return genre if valid", async () => {
-    const token = new User({ isAdmin: true }).generateJwtToken();
+      expect(result).to.not.be.null;
+    });
+    it("Should return genre if valid", async () => {
+      const token = new User({ isAdmin: true }).generateJwtToken();
+      const genreName = "genre1";
+      const res = await execute(genreName, token);
 
-    const res = await request(server)
-      .post("/api/genres")
-      .set("x-login-token", token)
-      .send({
-        id: 1,
-        name: "genre1",
-      });
-
-    console.log(res.body);
-
-    expect(res.body).to.have.property("_id", 1);
-    expect(res.body).to.have.property("name", "genre1");
+      expect(res.body).to.have.property("_id", 0);
+      expect(res.body).to.have.property("name", genreName);
+    });
   });
 });

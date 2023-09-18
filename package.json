@@ -29,7 +29,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive -- --watch"
   },
   "author": "Mathias Wakgari",
   "license": "ISC",
