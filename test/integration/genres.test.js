@@ -51,4 +51,15 @@ describe("/api/genres", () => {
       expect(res.status).to.equal(404);
     });
   });
+  describe("POST /", () => {
+    it("Should return a 401 code if not user isn't authenticated", async () => {
+      const genre = new Genre({
+        _id: 0,
+        name: "genre1",
+      });
+      const res = await request(server).post("api/genres").send(genre);
+
+      expect(res.status).to.equal(401);
+    });
+  });
 });
