@@ -25,6 +25,7 @@ describe("/api/genres", () => {
       ]);
 
       const res = await request(server).get("/api/genres");
+
       expect(res.status).to.equal(200);
       expect(res.body.length).to.equal(2);
       expect(res.body.some((g) => g.name === "genre1")).to.equal(true);
@@ -32,7 +33,7 @@ describe("/api/genres", () => {
     });
   });
   describe("GET /:id", () => {
-    it("Should return a genre with given id", async () => {
+    it("Should return a genre with given id if id is Valid", async () => {
       const genre = new Genre({
         _id: 0,
         name: "genre1",
@@ -43,6 +44,11 @@ describe("/api/genres", () => {
 
       expect(res.status).to.equal(200);
       expect(res.body).to.have.property("name", genre.name);
+    });
+    it("Should return a 404 if id is Invalid", async () => {
+      const res = await request(server).get(`/api/genres/1`);
+
+      expect(res.status).to.equal(404);
     });
   });
 });
