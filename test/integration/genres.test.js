@@ -3,6 +3,7 @@ const { Genre } = require("../../models/genre");
 var chaiSubset = require("chai-subset");
 
 const request = require("supertest");
+const { User } = require("../../models/user");
 
 let server;
 
@@ -57,9 +58,71 @@ describe("/api/genres", () => {
         _id: 0,
         name: "genre1",
       });
-      const res = await request(server).post("api/genres").send(genre);
+      const res = await request(server).post("/api/genres").send(genre);
 
       expect(res.status).to.equal(401);
     });
+  });
+  it("Should return a 403 code if not user isn't an admin", async () => {
+    const token = new User().generateJwtToken();
+    const genre = new Genre({
+      _id: 0,
+      name: "genre1",
+    });
+    const res = await request(server)
+      .post("/api/genres")
+      .set("x-login-token", token)
+      .send(genre);
+
+    expect(res.status).to.equal(403);
+  });
+  it("Should return a 400 code if input is invalid", async () => {
+    const token = new User({
+      isAdmin: true,
+    }).generateJwtToken();
+
+    const genre = {
+      id: 0,
+      name: "genred",
+    };
+    const res = await request(server)
+      .post("api/genres")
+      .set("x-login-token", token)
+      .send(genre);
+
+    expect(res.status).to.equal(400);
+  });
+  it("Should save genre if valid", async () => {
+    const token = new User().generateJwtToken();
+
+    const genre = new Genre({
+      id: 0,
+      name: "genred",
+    });
+    await genre.save();
+    const res = await request(server)
+      .post("/api/genres")
+      .set("x-login-token", token)
+      .send(genre);
+
+    const result = await Genre.findOne(genre);
+
+    expect(result).to.not.be.null;
+  });
+  it("Should return genre if valid", async () => {
+    const token = new User({ isAdmin: true }).generateJwtToken();
+
+    const res = await request(server)
+      .post("/api/genres")
+      .set("x-login-token", token)
+      .send({
+        id: 1,
+        name: "genre1",
+      });
+
+    console.log(res.body);
+
+    expect(res.body).to.have.property("_id", 1);
+    expect(res.body).to.have.property("name", "genre1");
   });
 });
