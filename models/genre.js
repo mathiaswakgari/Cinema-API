@@ -17,4 +17,5 @@ const validateGenre = (genre) => {
   return schema.validate(genre);
 };
 exports.Genre = Genre;
+exports.genreSchema = genreSchema;
 exports.validate = validateGenre;
