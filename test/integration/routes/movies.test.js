@@ -121,4 +121,27 @@ describe("/api/movies", () => {
       expect(res.body).to.have.property("_id", movie._id);
     });
   });
+
+  describe("DEL /:id", () => {
+    const token = new User({ isAdmin: true }).generateJwtToken();
+    let movie;
+    const execute = () => {
+      return request(server)
+        .delete(`/api/movies/${movie._id}`)
+        .set("x-login-token", token);
+    };
+    beforeEach(() => {
+      movie = movies[0];
+    });
+    it("Should return 404 if movie id is invalid", async () => {
+      movie._id = 1;
+      const res = await execute();
+      expect(res.statusCode).to.equal(404);
+    });
+    it("Should delete if ID is valid", async () => {
+      await Movie.collection.insertOne(movie);
+      const res = await execute();
+      expect(res.statusCode).to.equal(200);
+    });
+  });
 });
