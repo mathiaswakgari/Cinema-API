@@ -82,4 +82,43 @@ describe("/api/movies", () => {
       expect(res.body).to.have.property("title", movie.title);
     });
   });
+  describe("PUT /:id", () => {
+    const token = new User({ isAdmin: true }).generateJwtToken();
+    let movie;
+    const execute = () => {
+      return request(server)
+        .put(`/api/movies/${movie._id}`)
+        .set("x-login-token", token)
+        .send(movie);
+    };
+
+    beforeEach(() => {
+      movie = movies[0];
+    });
+
+    it("Should return 404 if movie ID is invalid", async () => {
+      movie._id = 1;
+      const res = await execute();
+      expect(res.statusCode).to.equal(404);
+    });
+    it("Should return 400 if input is invalid", async () => {
+      movie = { title: "onlyTitle" };
+      const res = await execute();
+      expect(res.statusCode).to.equal(400);
+    });
+    it("Should update if ID and input is valid", async () => {
+      await Movie.collection.insertOne(movie);
+      movie.title = "update title";
+      const res = await execute();
+      expect(res.statusCode).to.equal(200);
+    });
+    it("Should return the updated movie", async () => {
+      await Movie.collection.insertOne(movie);
+      movie.title = "update title";
+      const res = await execute();
+      expect(res.body).to.not.be.null;
+      expect(res.body).to.have.property("title", movie.title);
+      expect(res.body).to.have.property("_id", movie._id);
+    });
+  });
 });
