@@ -13,7 +13,7 @@ route.get("/", (req, res, next) => {
     .catch((error) => next(error));
 });
 route.get("/:id", async (req, res) => {
-  const movie = await Movie.findOne({ id: parseInt(req.params.id) });
+  const movie = await Movie.findOne({ _id: parseInt(req.params.id) });
   if (!movie) return res.status(404).send("Movie not found");
   return res.send(movie);
 });
