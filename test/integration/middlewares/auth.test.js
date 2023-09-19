@@ -3,7 +3,6 @@ const chai = require("chai");
 var chaiSubset = require("chai-subset");
 
 const { User } = require("../../../models/user");
-const { Genre } = require("../../../models/genre");
 let server;
 
 chai.use(chaiSubset);
@@ -18,10 +17,10 @@ describe("auth middleware", () => {
   beforeEach(() => {
     server = require("../../../app");
     token = new User({
-      fullname: "Mathias Wakgari",
-      email: "mathiaswakgari@gmail.com",
-      password: "Hannah&65619270",
-      username: "mathiaswakgari",
+      fullname: "Hello world",
+      email: "as@g.com",
+      password: "ValidPass1@",
+      username: "helloworld",
     }).generateJwtToken();
   });
   afterEach(async () => {
