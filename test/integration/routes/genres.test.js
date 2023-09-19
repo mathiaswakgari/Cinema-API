@@ -145,4 +145,26 @@ describe("/api/genres", () => {
       expect(res.body).to.have.property("_id", 1);
     });
   });
+  describe("DEL /:id", () => {
+    const token = new User({ isAdmin: true }).generateJwtToken();
+    const execute = () => {
+      return request(server)
+        .delete("/api/genres/1")
+        .set("x-login-token", token);
+    };
+
+    it("Should return 404 if genre id is invalid", async () => {
+      const res = await execute();
+      expect(res.statusCode).to.equal(404);
+    });
+    it("Should delete if ID is valid", async () => {
+      const genre = new Genre({
+        _id: 1,
+        name: "genre1",
+      });
+      await genre.save();
+      const res = await execute();
+      expect(res.statusCode).to.equal(200);
+    });
+  });
 });
