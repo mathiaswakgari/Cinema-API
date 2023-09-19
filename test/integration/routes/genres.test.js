@@ -98,4 +98,51 @@ describe("/api/genres", () => {
       expect(res.body).to.have.property("name", genreName);
     });
   });
+  describe("PUT /:id", () => {
+    const token = new User({ isAdmin: true }).generateJwtToken();
+    let genreName;
+    let id;
+    const execute = () => {
+      return request(server)
+        .put("/api/genres/1")
+        .set("x-login-token", token)
+        .send({ id: id, name: genreName });
+    };
+
+    beforeEach(() => {
+      (genreName = "genre1"), (id = 1);
+    });
+
+    it("Should return 404 if genre id is invalid", async () => {
+      const res = await execute();
+      expect(res.statusCode).to.equal(404);
+    });
+
+    it("Should return 400 if input is invalid", async () => {
+      genreName = "ge";
+      const res = await execute();
+      expect(res.statusCode).to.equal(400);
+    });
+
+    it("Should update if ID and input is valid", async () => {
+      const genre = new Genre({
+        _id: id,
+        name: genreName,
+      });
+      await genre.save();
+      const res = await execute();
+      expect(res.statusCode).to.equal(200);
+    });
+    it("Should return the updated genre", async () => {
+      const genre = new Genre({
+        _id: id,
+        name: genreName,
+      });
+      await genre.save();
+      const res = await execute();
+      expect(res.body).to.not.be.null;
+      expect(res.body).to.have.property("name", genreName);
+      expect(res.body).to.have.property("_id", 1);
+    });
+  });
 });
