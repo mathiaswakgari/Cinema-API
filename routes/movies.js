@@ -10,7 +10,7 @@ const { validate, Movie } = require("../models/movie");
 route.get("/", (req, res, next) => {
   if (req.query) {
     const { rating, year, genre, sortBy, orderBy } = req.query;
-    (rating, year, genre, sortBy) &&
+    req.query &&
       Movie.find({
         rating: { $gte: parseInt(rating) ? parseInt(rating) : 0 },
         year: { $gte: parseInt(year) ? parseInt(year) : 0 },
