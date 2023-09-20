@@ -1,5 +1,10 @@
-/.env
-/error.log
-/info.log
-/node_modules
-/test_files
+.env
+error.log
+
+node_modules
+json
+test_files
+info.log
+json
+
+

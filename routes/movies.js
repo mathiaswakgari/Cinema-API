@@ -4,9 +4,22 @@ const auth = require("../middlewares/auth");
 const admin = require("../middlewares/admin");
 const asyncMiddleware = require("../middlewares/async");
 const route = express.Router();
+const _ = require("lodash");
 const { validate, Movie } = require("../models/movie");
 
 route.get("/", (req, res, next) => {
+  if (req.query) {
+    const { rating, year, genre, sortBy, orderBy } = req.query;
+    (rating, year, genre, sortBy) &&
+      Movie.find({
+        rating: { $gte: parseInt(rating) ? parseInt(rating) : 0 },
+        year: { $gte: parseInt(year) ? parseInt(year) : 0 },
+        genres: { $elemMatch: { $gte: genre ? genre_.capitalize(genre) : "" } },
+      })
+        .sort()
+        .then((movies) => res.send(movies))
+        .catch((error) => next(error));
+  }
   Movie.find()
     .sort("title")
     .then((movies) => res.send(movies))
