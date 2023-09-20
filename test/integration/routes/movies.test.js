@@ -73,7 +73,7 @@ describe("/api/movies", () => {
 
       expect(result).to.not.be.null;
     });
-    it("Should return movie if valid", async () => {
+    it("Should return saved movie if valid", async () => {
       const token = new User({ isAdmin: true }).generateJwtToken();
       const movie = movies[0];
       const res = await execute(movie, token);

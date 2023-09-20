@@ -67,4 +67,45 @@ describe("/api/users", () => {
       expect(res.statusCode).to.equal(404);
     });
   });
+  describe("POST /", () => {
+    let user;
+    const execute = () => {
+      return request(server).post("/api/users").send(user);
+    };
+    beforeEach(() => {
+      user = {
+        email: "user@email.com",
+        username: "username",
+        password: "Pass1234@",
+        fullname: "Fullname",
+      };
+    });
+
+    it("Should return 400 if req.body is invalid", async () => {
+      user = {};
+      const res = await execute();
+      expect(res.statusCode).to.equal(400);
+    });
+    it("Should return 400 if user already exists", async () => {
+      await User.collection.insertOne(user);
+      const res = await execute();
+      expect(res.statusCode).to.equal(400);
+    });
+    it("Should return 400 if user already exists", async () => {
+      await User.collection.insertOne(user);
+      const res = await execute();
+      expect(res.statusCode).to.equal(400);
+    });
+    it("Should save if User object is valid", async () => {
+      const res = await execute();
+      const result = await User.findOne({ email: user.email });
+      expect(res.statusCode).to.equal(200);
+      expect(result).to.not.be.null;
+    });
+    it("Should return the saved user", async () => {
+      const res = await execute();
+      expect(res.body).to.have.property("email", user.email);
+      expect(res.body).to.have.property("username", user.username);
+    });
+  });
 });

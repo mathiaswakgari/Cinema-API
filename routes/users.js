@@ -37,7 +37,6 @@ route.get(
 
 route.post(
   "/",
-  auth,
   asyncMiddleware(async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.message);
