@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const auth = require("../middlewares/auth");
 const admin = require("../middlewares/admin");
 const asyncMiddleware = require("../middlewares/async");
+const validateObjectId = require("../middlewares/validateObjectId");
 const _ = require("lodash");
 const route = express.Router();
 const { validate, User } = require("../models/user");
@@ -26,9 +27,9 @@ route.get("/", [auth, admin], (req, res, next) => {
 
 route.get(
   "/:id",
-  [auth, admin],
+  [auth, admin, validateObjectId],
   asyncMiddleware(async (req, res) => {
-    const user = User.findById(req.params.id);
+    const user = await User.findById(req.params.id);
     if (!user) return res.status(404).send("User not found.");
     return res.send(user);
   })
@@ -36,7 +37,7 @@ route.get(
 
 route.post(
   "/",
-  [auth, admin],
+  auth,
   asyncMiddleware(async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.message);
