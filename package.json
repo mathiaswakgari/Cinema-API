@@ -28,7 +28,11 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "18.17.1"
   },
   "author": "Mathias Wakgari",
   "license": "ISC",

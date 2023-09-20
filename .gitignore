@@ -1,11 +1,11 @@
 .env
 error.log
 
-node_modules
-json
-test_files
+node_modules/
+json/
+test_files/
 info.log
-json
+
 
 
 error.log
