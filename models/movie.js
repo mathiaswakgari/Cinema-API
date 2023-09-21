@@ -55,10 +55,10 @@ const validateMovie = (movie) => {
     description_full: Joi.string().min(1),
     cast: Joi.array().items(
       Joi.object({
-        name: Joi.string(),
-        character_name: Joi.string(),
-        url_small_image: Joi.string(),
-        imdb_code: Joi.string(),
+        name: Joi.string().allow(""),
+        character_name: Joi.string().allow(""),
+        url_small_image: Joi.string().allow(""),
+        imdb_code: Joi.string().allow(""),
       })
     ),
   });
