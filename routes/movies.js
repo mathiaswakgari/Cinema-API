@@ -19,11 +19,12 @@ route.get("/", (req, res, next) => {
         .sort()
         .then((movies) => res.send(movies))
         .catch((error) => next(error));
+  } else {
+    Movie.find()
+      .sort("title")
+      .then((movies) => res.send(movies))
+      .catch((error) => next(error));
   }
-  Movie.find()
-    .sort("title")
-    .then((movies) => res.send(movies))
-    .catch((error) => next(error));
 });
 route.get("/:id", async (req, res) => {
   const movie = await Movie.findOne({ _id: parseInt(req.params.id) });
