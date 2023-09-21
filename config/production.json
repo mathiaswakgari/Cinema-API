@@ -1,5 +1,5 @@
 {
   "name": "Cinema API - Production",
-  "connection": "mongodb://127.0.0.1/cinema",
+  "url": "DATABASE_URL",
   "jwtPrivateKey": "JWTkey"
 }

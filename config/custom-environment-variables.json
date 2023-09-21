@@ -1,1 +1,1 @@
-{ "jwtPrivateKey": "CinemaJWTkey" }
+{ "jwtPrivateKey": "CinemaJWTkey", "url": "DATABASE_URL" }

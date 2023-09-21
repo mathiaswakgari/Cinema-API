@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-const config = require("config");
+require("dotenv").config();
 const logger = require("../logger");
 
 module.exports = function () {
   // database
   mongoose
-    .connect(config.get("url"), {
+    .connect(process.env.DATABASE_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
