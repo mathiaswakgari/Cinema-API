@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 const homeRoute = require("../routes/home");
 const moviesRoute = require("../routes/movies");
@@ -9,6 +10,7 @@ const loginRoute = require("../routes/login");
 const error = require("../middlewares/error");
 
 module.exports = function (app) {
+  app.use(cors({ origin: true, credentials: true }));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   // Home Section
