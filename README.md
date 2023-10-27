@@ -12,7 +12,7 @@ HTTP GET
 
 | Endpoint           | Description |
 | --------- | ------- |
-| cinema-dsih.onrender.com/api | Used to list and search through out all the available movies. Can sort, and order the results       |
+| cinema-dsih.onrender.com/api/movies | Used to list and search through out all the available movies. Can sort, and order the results       |
 
 Endpoint Parameters
 
