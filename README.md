@@ -1,14 +1,15 @@
 # Cinema-API
 API built using Node.js and Express
 
-API Endpoints
+## API Endpoints
 - List Movies
 - Movie Details
 - List Genres
 
+#
 
-_**List Movies**_
-HTTP GET
+_**List Movies**_<br />
+_HTTP GET_
 
 | Endpoint           | Description |
 | --------- | ------- |
@@ -23,14 +24,14 @@ _Endpoint Parameters_
 | genres    |   All   |   Used to filter by a given genre    |
 
 
-_**Movie Details**_
+_**Movie Details**_<br />
 _HTTP GET_
 
 | Endpoint           | Description |
 | --------- | ------- |
 | cinema-dsih.onrender.com/api/movies/:id |Returns the information about a specific movie|
 
-_**List Genres**_
+_**List Genres**_<br />
 _HTTP GET_
 
 | Endpoint           | Description |
