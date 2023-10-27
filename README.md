@@ -7,14 +7,14 @@ API Endpoints
 - List Genres
 
 
-List Movies
-HTTP GET
+**_List Movies**
+_HTTP GET__
 
 | Endpoint           | Description |
 | --------- | ------- |
 | cinema-dsih.onrender.com/api/movies | Used to list and search through out all the available movies. Can sort, and order the results       |
 
-Endpoint Parameters
+_Endpoint Parameters_
 
 | Parameter | Default |Description|
 | --------- | ------- | ------- |
@@ -23,15 +23,15 @@ Endpoint Parameters
 | genres    |   All   |   Used to filter by a given genre    |
 
 
-Movie Details
-HTTP GET
+_**Movie Details**_
+_HTTP GET_
 
 | Endpoint           | Description |
 | --------- | ------- |
 | cinema-dsih.onrender.com/api/movies/:id |Returns the information about a specific movie|
 
-List Genres
-HTTP GET
+_**List Genres**_
+_HTTP GET_
 
 | Endpoint           | Description |
 | --------- | ------- |
