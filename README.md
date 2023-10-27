@@ -7,7 +7,7 @@ API Endpoints
 - List Genres
 
 
-_**List Movies**_/n
+_**List Movies**_\n
 _HTTP GET_
 
 | Endpoint           | Description |
