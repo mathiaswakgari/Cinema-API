@@ -10,6 +10,6 @@ API Endpoints
 List Movies
 HTTP GET
 
-| Endpoint  | Description |
+| Endpoint           | Description |
 | --------- | ------- |
 | cinema-dsih.onrender.com/api | Used to list and search through out all the available movies. Can sort, and order the results       |
