@@ -21,3 +21,17 @@ Endpoint Parameters
 | rating    |    0    |   Used to filter movie by a given minimum IMDb rating      |
 | year      |    0    |   Used to filter movie by a given from release year     |
 | genres    |   All   |   Used to filter by a given genre    |
+
+
+Movie Details
+HTTP GET
+
+| Endpoint           | Description |
+| --------- | ------- |
+| cinema-dsih.onrender.com/api/movies/:id |Returns the information about a specific movie|
+
+Endpoint Parameters
+
+| Parameter | Default |Required|
+| --------- | ------- | ------- |
+| id   |   null    |  YES     |
