@@ -30,8 +30,9 @@ HTTP GET
 | --------- | ------- |
 | cinema-dsih.onrender.com/api/movies/:id |Returns the information about a specific movie|
 
-Endpoint Parameters
+List Genres
+HTTP GET
 
-| Parameter | Default |Required|
-| --------- | ------- | ------- |
-| id   |   null    |  YES     |
+| Endpoint           | Description |
+| --------- | ------- |
+| cinema-dsih.onrender.com/api/genres | Used to list all the available genres.|
